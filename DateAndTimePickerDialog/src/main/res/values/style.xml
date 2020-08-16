@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowAnimationStyle">@style/SlideDialogAnimation</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+
+    </style>
+
+    <style name="SlideDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_from_left_2</item>
+        <item name="android:windowExitAnimation">@anim/slide_to_right_2</item>
+    </style>
+</resources>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="@string/birthdate"
+        android:textColor="@color/color_form_view_title"
+        android:textSize="15sp"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:id="@+id/layoutBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/txtInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="33dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/birthdate"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textSize="15sp"
+            app:met_hideUnderline="true"
+            app:met_textColorHint="@color/color_form_view_hint" />
+
+        <RelativeLayout
+            android:id="@+id/btnPick"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/icon_calendar"
+                app:tint="@color/color_black" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/viewLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_view_line_default" />
+</LinearLayout>
