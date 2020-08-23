@@ -12,16 +12,13 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.core.content.ContextCompat;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
-
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -29,9 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class DateTimePickerView extends LinearLayout {
 
@@ -123,22 +119,15 @@ public class DateTimePickerView extends LinearLayout {
 
         mCalendar = Calendar.getInstance();
         mYear = String.valueOf(mCalendar.get(Calendar.YEAR));
-        // mMonth = String.valueOf(mCalendar.get(Calendar.MONTH) + 1);
+
         mMonth = String.format("%02d", mCalendar.get(Calendar.MONTH) + 1);
-
-        //mDay = String.valueOf(mCalendar.get(Calendar.DAY_OF_MONTH));
         mDay = String.format("%02d", mCalendar.get(Calendar.DAY_OF_MONTH));
-
-
-        // mHour = String.valueOf(mCalendar.get(Calendar.HOUR_OF_DAY));
         mHour = String.format("%02d", mCalendar.get(Calendar.HOUR_OF_DAY));
-
-        //mMinute = String.valueOf(mCalendar.get(Calendar.MINUTE));
         mMinute = String.format("%02d", mCalendar.get(Calendar.MINUTE));
     }
 
     public String getText() {
-        return txtInput.getText().toString();
+        return Objects.requireNonNull(txtInput.getText()).toString();
     }
 
     public String getDate() {
@@ -150,67 +139,45 @@ public class DateTimePickerView extends LinearLayout {
 
 
     public void setOnClickListener(final ClickListener l) {
-        btnPick.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDialog();
-                l.onClick();
-            }
+        btnPick.setOnClickListener(v -> {
+            openDialog();
+            l.onClick();
         });
 
-        txtInput.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDialog();
-                l.onClick();
-            }
+        txtInput.setOnClickListener(v -> {
+            openDialog();
+            l.onClick();
         });
 
     }
 
     public void openDialog() {
-        DatePickerDialog dpd = new DatePickerDialog(context, R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month += 1;
-                mDay = String.format("%02d", dayOfMonth);
-                mMonth = String.format("%02d", month);
-                mYear = String.valueOf(year);
-                txtInput.setText(mDay + "." + mMonth + "." + mYear + " 00:00");
+        new DatePickerDialog(context, R.style.DialogTheme, (view, year, month, dayOfMonth) -> {
+            month += 1;
+            mDay = String.format("%02d", dayOfMonth);
+            mMonth = String.format("%02d", month);
+            mYear = String.valueOf(year);
+            txtInput.setText(mDay + "." + mMonth + "." + mYear + " 00:00");
 
-                mCalendar.set(year, month, dayOfMonth);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        openTimePickerDialog();
-                    }
-                }, 100);
+            mCalendar.set(year, month, dayOfMonth);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    openTimePickerDialog();
+                }
+            }, 100);
 
-            }
-        }, Integer.parseInt(mYear), Integer.parseInt(mMonth) - 1, Integer.parseInt(mDay));
-        dpd.show();
-//        dpd.getDatePicker().setMinDate(mCalendar.getTime().getTime());
+        }, Integer.parseInt(mYear), Integer.parseInt(mMonth) - 1, Integer.parseInt(mDay)).show();
+
     }
 
     public void openTimePickerDialog() {
-
-
-        TimePickerDialog tpd = new TimePickerDialog(context, R.style.DialogTheme, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-                mHour = String.format("%02d", hourOfDay);
-                mMinute = String.format("%02d", minute);
-
-                mCalendar.set(Integer.valueOf(mYear), Integer.valueOf(mMonth) - 1, Integer.valueOf(mDay), hourOfDay, minute);
-                txtInput.setText(mDay + "." + mMonth + "." + mYear + " " + mHour + ":" + mMinute);
-
-
-            }
-
-        }, Integer.parseInt(mHour), Integer.parseInt(mMinute), true);
-
-        tpd.show();
+        new TimePickerDialog(context, R.style.DialogTheme, (view, hourOfDay, minute) -> {
+            mHour = String.format("%02d", hourOfDay);
+            mMinute = String.format("%02d", minute);
+            mCalendar.set(Integer.valueOf(mYear), Integer.valueOf(mMonth) - 1, Integer.valueOf(mDay), hourOfDay, minute);
+            txtInput.setText(mDay + "." + mMonth + "." + mYear + " " + mHour + ":" + mMinute);
+        }, Integer.parseInt(mHour), Integer.parseInt(mMinute), true).show();
     }
 
     public void cleanText() {
@@ -228,23 +195,16 @@ public class DateTimePickerView extends LinearLayout {
     }
 
     private void setTextWatcher() {
-        //setFocus(txtEditText);
-
         txtInput.addTextChangedListener(mTextWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-
                 if (s.toString().isEmpty()) {
-                    //layoutEditText.setBackgroundResource(R.drawable.bg_rectangle_light_red_solid_red_stroke);
                     viewLine.setBackgroundColor(ContextCompat.getColor(context, R.color.color_view_line_error));
                 } else {
-                    //layoutEditText.setBackgroundResource(R.drawable.bg_rectangle_white_solid);
                     viewLine.setBackgroundColor(ContextCompat.getColor(context, R.color.color_view_line_default));
                 }
 
@@ -276,8 +236,6 @@ public class DateTimePickerView extends LinearLayout {
     }
 
     public void setText(String sdate1) {
-
-
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
 
         try {
@@ -306,30 +264,4 @@ public class DateTimePickerView extends LinearLayout {
 
         txtInput.setText(mDay + "." + mMonth + "." + mYear + " " + mHour + ":" + mMinute);
     }
-
-
-    public void setDate(Date date) {
-
-        date.setMinutes(date.getMinutes() + 30);
-
-        mCalendar.setTime(date);
-
-        mYear = String.valueOf(mCalendar.get(Calendar.YEAR));
-        // mMonth = String.valueOf(mCalendar.get(Calendar.MONTH) + 1);
-        mMonth = String.format("%02d", mCalendar.get(Calendar.MONTH) + 1);
-
-        //mDay = String.valueOf(mCalendar.get(Calendar.DAY_OF_MONTH));
-        mDay = String.format("%02d", mCalendar.get(Calendar.DAY_OF_MONTH));
-
-
-        // mHour = String.valueOf(mCalendar.get(Calendar.HOUR_OF_DAY));
-        mHour = String.format("%02d", mCalendar.get(Calendar.HOUR_OF_DAY));
-
-        //mMinute = String.valueOf(mCalendar.get(Calendar.MINUTE));
-        mMinute = String.format("%02d", mCalendar.get(Calendar.MINUTE));
-
-
-        txtInput.setText(mDay + "." + mMonth + "." + mYear + " " + mHour + ":" + mMinute);
-    }
-
 }
