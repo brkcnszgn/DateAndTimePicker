@@ -42,14 +42,6 @@
     <color name="color_form_view_hint">#6D6D6D</color>
     <color name="color_form_view_hint_not_focus">#ADADAD</color>
 
-    <!--<color name="chart_1">#67b7dc</color>-->
-    <!--<color name="chart_2">#fdd400</color>-->
-    <!--<color name="chart_3">#84b761</color>-->
-    <!--<color name="chart_4">#cc4748</color>-->
-    <!--<color name="chart_5">#cd82ad</color>-->
-    <!--<color name="chart_6">#2f4074</color>-->
-    <!--<color name="chart_7">#448e4d</color>-->
-    <!--<color name="chart_8">#b7b83f</color>-->
 
 
     <color name="chart_1">#377EB8</color>

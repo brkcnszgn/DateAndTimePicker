@@ -2,5 +2,7 @@
 <resources>
     <declare-styleable name="DateTimePickerView">
         <attr name="dtpv_title" format="string" />
+        <attr name="dtpv_textColor" format="color" />
+        <attr name="dtpv_icon_color" format="color" />
     </declare-styleable>
 </resources>
