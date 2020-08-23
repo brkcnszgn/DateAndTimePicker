@@ -11,8 +11,10 @@
 
     <com.brkcnszgn.dateandtimepickerdialog.DateTimePickerView
         android:id="@+id/dt"
+        android:layout_height="wrap_content"
+        app:dtpv_color="@color/colorAccent"
         android:layout_width="match_parent"
-        app:dtpv_title="Başlangıç Tarihi"
-        android:layout_height="wrap_content"/>
+        app:dtpv_textColor="@color/colorPrimary"
+        app:dtpv_title="Date" />
 
 </LinearLayout>

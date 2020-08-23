@@ -17,10 +17,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dateTimePickerView = findViewById(R.id.dt);
+      //  dateTimePickerView.titleColor(R.color.color_black);
         dateTimePickerView.setOnClickListener(new ClickListener() {
             @Override
             public void onClick() {
-
             }
         });
     }
