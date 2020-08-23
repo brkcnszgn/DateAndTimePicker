@@ -91,7 +91,7 @@ public class DateTimePickerView extends LinearLayout {
         try {
             title = typedArray.getString(R.styleable.DateTimePickerView_dtpv_title);
             textColor = typedArray.getColor(R.styleable.DateTimePickerView_dtpv_textColor, Color.BLACK);
-            iconColor = typedArray.getColor(R.styleable.DateTimePickerView_dtpv_color, Color.BLACK);
+            iconColor = typedArray.getColor(R.styleable.DateTimePickerView_dtpv_icon_color, Color.BLACK);
         } finally {
             typedArray.recycle();
         }
